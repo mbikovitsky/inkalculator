@@ -245,7 +245,7 @@ VAR calculations_performed = 0
     ~ return inf()  // Technically should be NaN, but inkjs can't handle it
                     // https://github.com/y-lohse/inkjs/blob/v2.1.0/src/engine/Value.ts#L50
   - else:
-    ~ return a / b
+    ~ return FLOAT(a) / b
   }
 - else:
   ERROR # NOMEMORY
