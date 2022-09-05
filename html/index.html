@@ -1,0 +1,68 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Inkalculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="outerContainer">
+        <h3 class="written-in-ink"><a href="https://www.inklestudios.com/ink">WRITTEN IN INK</a></h3>
+
+        <div id="controls" class="buttons">
+            <a id="theme-switch" title="Switch theme">theme</a>
+            <a id="flip" title="Flip">flip</a>
+        </div>
+
+        <div id="story" class="container">
+            <div class="header">
+                <h1>Inkalculator</h1>
+                <h2 class="byline"></h2>
+            </div>
+
+            <div id="calculator" class="calculator">
+                <div class="calculator__output">
+                    <span class="calculator__output__memory"></span>
+                    <span class="calculator__output__number">ERROR</span>
+                </div>
+                <div class="calculator__keys">
+                    <button data-op="MC" class="calculator__key calculator__key--operator">MC</button>
+                    <button data-op="MR" class="calculator__key calculator__key--operator">MR</button>
+                    <button data-op="MS" class="calculator__key calculator__key--operator">MS</button>
+                    <button data-op="M+" class="calculator__key calculator__key--operator">M&plus;</button>
+                    <button data-op="M-" class="calculator__key calculator__key--operator">M&minus;</button>
+                    <button data-op="AC" class="calculator__key calculator__key--operator calculator__key--clear">AC</button>
+                    <button data-op="+-" class="calculator__key calculator__key--operator">&pm;</button>
+                    <button data-op="sqrt" class="calculator__key calculator__key--operator">&radic;</button>
+                    <button data-op="7" class="calculator__key">7</button>
+                    <button data-op="8" class="calculator__key">8</button>
+                    <button data-op="9" class="calculator__key">9</button>
+                    <button data-op="/" class="calculator__key calculator__key--operator">&div;</button>
+                    <button data-op="%" class="calculator__key calculator__key--operator">&percnt;</button>
+                    <button data-op="4" class="calculator__key">4</button>
+                    <button data-op="5" class="calculator__key">5</button>
+                    <button data-op="6" class="calculator__key">6</button>
+                    <button data-op="*" class="calculator__key calculator__key--operator">&times;</button>
+                    <button data-op="1/x" class="calculator__key calculator__key--operator">1/x</button>
+                    <button data-op="1" class="calculator__key">1</button>
+                    <button data-op="2" class="calculator__key">2</button>
+                    <button data-op="3" class="calculator__key">3</button>
+                    <button data-op="-" class="calculator__key calculator__key--operator">&minus;</button>
+                    <button data-op="0" class="calculator__key calculator__key--zero">0</button>
+                    <button data-op="." class="calculator__key">.</button>
+                    <button data-op="+" class="calculator__key calculator__key--operator">&plus;</button>
+                    <button data-op="=" class="calculator__key calculator__key--enter">&equals;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="ink.js"></script>
+    <script src="calculator.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
