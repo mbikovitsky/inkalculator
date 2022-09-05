@@ -37,10 +37,6 @@
 
 
 === function count_significant_digits(x) ===
-~ x = FLOAT(x)  // This may introduce an error when converting from int,
-                // but it shouldn't introduce an order-of-magnitude error...
-                // I hope. I haven't noticed anything yet.
-
 {
 - x == inf() || x == -1 * inf():
   ~ return inf()
@@ -48,17 +44,21 @@
   ~ return x
 }
 
-{ -1 < x && x < 1:
+~ x = abs(x)
+{ x < 0:
+  // Must be INT_MIN. This will overflow, but won't change the number of digits.
+  ~ x = x - 1
+}
+
+{ x < 1:
   ~ return 1
 - else:
   ~ return __count_significant_digits_recursive(x, 0)
 }
 
 === function __count_significant_digits_recursive(x, digits) ===
-{ -1 < x && x < 1:
+{ x < 1:
   ~ return digits
 - else:
-  // Why are we casting to float here? Because otherwise inkjs might coerce it back
-  // to an int... At least I think that's what happens.
-  ~ return __count_significant_digits_recursive(FLOAT(x) / 10, digits + 1)
+  ~ return __count_significant_digits_recursive(x / 10, digits + 1)
 }
