@@ -38,6 +38,8 @@ VAR calculations_performed = 0
 
 -> easter_eggs ->
 
+~ temp rounded_memory = 0
+
   ~ temp i = 0
 - (__keypad_loop_top)
   { i <= 9:
@@ -56,27 +58,25 @@ VAR calculations_performed = 0
 
 + {not error} [>>> KEYPAD: MR]
   ~ argument = memory
-  { not round_for_display(argument):
-    ~ error = true
-  - else:
-    ~ decimal = 0
-    ~ typing = false
-    ~ dirty = true
-  }
+  ~ decimal = 0
+  ~ typing = false
+  ~ dirty = true
 
 + {not error} [>>> KEYPAD: MS]
   ~ memory = argument
 
 + {not error} [>>> KEYPAD: M+]
   ~ memory += argument
-  { not round_for_display(memory):
+  ~ rounded_memory = memory
+  { not round_for_display(rounded_memory):
     ~ error = true
     ~ memory = 0.0
   }
 
 + {not error} [>>> KEYPAD: M-]
   ~ memory -= argument
-  { not round_for_display(memory):
+  ~ rounded_memory = memory
+  { not round_for_display(rounded_memory):
     ~ error = true
     ~ memory = 0.0
   }
@@ -105,9 +105,6 @@ VAR calculations_performed = 0
   ~ decimal = 0
   ~ typing = false
   ~ dirty = true
-  { not round_for_display(argument):
-    ~ error = true
-  }
   { typing_constant:
     ~ constant = argument
   }
@@ -117,9 +114,6 @@ VAR calculations_performed = 0
   ~ decimal = 0
   ~ typing = false
   ~ dirty = true
-  { not round_for_display(argument):
-    ~ error = true
-  }
   { typing_constant:
     ~ constant = argument
   }
@@ -129,9 +123,6 @@ VAR calculations_performed = 0
   ~ decimal = 0
   ~ typing = false
   ~ dirty = true
-  { not round_for_display(argument):
-    ~ error = true
-  }
   { typing_constant:
     ~ constant = argument
   }
@@ -159,9 +150,6 @@ VAR calculations_performed = 0
     ~ argument = FLOAT(i)
     ~ typing = true
     ~ dirty = true
-  }
-  { not round_for_display(argument):
-    ~ error = true
   }
   { typing_constant:
     ~ constant = argument
@@ -220,11 +208,6 @@ VAR calculations_performed = 0
   ~ result = argument
 }
 
-{ not round_for_display(result):
-  ~ error = true
-  ~ return
-}
-
 ~ argument = result
 ~ decimal = 0
 ~ operator = ""
@@ -268,15 +251,20 @@ VAR calculations_performed = 0
 
 === function display() ===
 
+~ temp rounded = argument
+{ not round_for_display(rounded):
+  ~ error = true
+}
+
 { error:
   ERROR # NOMEMORY
   ~ return
 }
 
-~ temp text = "{argument}"
+~ temp text = "{rounded}"
 
 // Display trailing zeroes when typing
-{ argument == INT(argument) && decimal < 0:
+{ rounded == INT(rounded) && decimal < 0:
   ~ text += "." + multiply_string("0", abs(decimal) - 1)
 }
 
